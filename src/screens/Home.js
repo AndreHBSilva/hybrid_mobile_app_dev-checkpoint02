@@ -60,8 +60,7 @@ const HomeScreen = ({navigation}) => {
     }
 
     const validaSenhas = () =>{
-        if (textInputSenha !== textInputConfSenha )
-            return {msgSenhaErrada}
+        return textInputSenha === textInputConfSenha;
     }
     
     return (
@@ -180,7 +179,9 @@ const HomeScreen = ({navigation}) => {
                     
                 />
     
-                <Pressable style={styles.button} onPress={msgSucesso}>
+                <Pressable style={styles.button} onPress={() => {
+                    validaSenhas() ? msgSucesso() : msgSenhaErrada();
+                }}>
                     <Text style={styles.medTextBtn}>Cadastrar</Text>
 
                 </Pressable>
