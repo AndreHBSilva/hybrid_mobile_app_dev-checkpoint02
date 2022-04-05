@@ -12,8 +12,7 @@ import {
     ScrollView,
     
 } from 'react-native'
-import {Ionicons} from '@expo/vector-icons'
-//npm install react-native-paper
+import { Ionicons } from '@expo/vector-icons'
 import { RadioButton } from 'react-native-paper'
 import CheckBox from '../components/CheckBox'
 
@@ -23,12 +22,12 @@ const HomeScreen = ({navigation}) => {
     const [textInputCadUsuario, setTextInputCadUsuario] = useState('')
     const [textInputNomeCompleto, setTextInputNomeCompleto] = useState('')
     const [textInputSenha, setTextInputSenha] = useState('')
-    const [hideSenha, setHideSenha] = useState(true)
     const [textInputConfSenha, setTextInputConfSenha] = useState('')
+    const [hideSenha, setHideSenha] = useState(true)
     const [hideConfSenha, setHideConfSenha] = useState(true)
-    const [checked, setChecked] = React.useState('Masculino')
     const [termos, setTermos] = useState(false)
     const [email, setEmail] = useState(false)
+    const [checked, setChecked] = useState('Masculino')
 
     const msgSenhaErrada = () =>{
         Alert.alert(
@@ -39,8 +38,16 @@ const HomeScreen = ({navigation}) => {
             ]
         )
     }
-    const limpaReg = () =>{
-        [textInputCadUsuario, setTextInputCadUsuario] = useState('')
+    const setInitialState = () =>{
+        setTextInputCadUsuario('');
+        setTextInputNomeCompleto('');
+        setTextInputSenha('');
+        setTextInputConfSenha('');
+        setHideSenha(true)
+        setHideConfSenha(true);
+        setTermos(false);
+        setEmail(false);
+        setChecked('Masculino');
     }
     
     const msgSucesso = () =>{
@@ -61,6 +68,19 @@ const HomeScreen = ({navigation}) => {
 
     const validaSenhas = () =>{
         return textInputSenha === textInputConfSenha;
+    }
+
+    const isCamposVazios = () => {
+        return [textInputCadUsuario, textInputNomeCompleto, textInputSenha, textInputConfSenha] === '';
+    }
+
+    const cadastrar = () => {
+        if(validaSenhas() && !isCamposVazios()) {
+            msgSucesso();
+            setInitialState();
+        } else {
+            msgSenhaErrada();
+        }
     }
     
     return (
@@ -105,7 +125,7 @@ const HomeScreen = ({navigation}) => {
                         style={styles.icon}
                         onPress={() => setHideSenha(!hideSenha)}>
                         {
-                            hideConfSenha ? <Ionicons 
+                            hideSenha ? <Ionicons 
                             name ="eye" 
                             color="#fff"
                             size={20}
@@ -179,9 +199,7 @@ const HomeScreen = ({navigation}) => {
                     
                 />
     
-                <Pressable style={styles.button} onPress={() => {
-                    validaSenhas() ? msgSucesso() : msgSenhaErrada();
-                }}>
+                <Pressable style={styles.button} onPress={cadastrar}>
                     <Text style={styles.medTextBtn}>Cadastrar</Text>
 
                 </Pressable>
