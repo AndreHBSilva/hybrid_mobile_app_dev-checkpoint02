@@ -60,7 +60,7 @@ const HomeScreen = ({navigation}) => {
     }
 
     const validaSenhas = () =>{
-        if (!textInputSenha == textInputConfSenha )
+        if (textInputSenha !== textInputConfSenha )
             return {msgSenhaErrada}
     }
     
@@ -105,18 +105,24 @@ const HomeScreen = ({navigation}) => {
                     <TouchableOpacity 
                         style={styles.icon}
                         onPress={() => setHideSenha(!hideSenha)}>
-                        <Ionicons 
+                        {
+                            hideConfSenha ? <Ionicons 
                             name ="eye" 
                             color="#fff"
-                            size={25}
+                            size={20}
+                            /> :
+                            <Ionicons 
+                            name ="eye-off" 
+                            color="#fff"
+                            size={20}
                             />
+                        }
                     </TouchableOpacity>
                 </View>
                 <View style={styles.inputArea}>
                     <TextInput
                         value={textInputConfSenha}
                         onChangeText={(value) => setTextInputConfSenha(value)}
-                        //onEndEditing={ () => validaSenhas}
                         style={styles.inputPassword}
                         placeholder='Confirmar Senha'
                         placeholderTextColor = "#fff"
@@ -125,11 +131,19 @@ const HomeScreen = ({navigation}) => {
                     <TouchableOpacity 
                         style={styles.icon}
                         onPress={() => setHideConfSenha(!hideConfSenha)}>
-                        <Ionicons 
+                        {
+                            hideConfSenha ? <Ionicons 
                             name ="eye" 
                             color="#fff"
-                            size={25}
+                            size={20}
+                            /> :
+                            <Ionicons 
+                            name ="eye-off" 
+                            color="#fff"
+                            size={20}
                             />
+                        }
+                        
                     </TouchableOpacity>
                 </View>                   
                 <Text style={styles.medText}>Sexo: </Text>   
@@ -221,7 +235,7 @@ const styles = StyleSheet.create({
         width: '85%',
         height: 50,
         color: '#fff',
-        padding: 18,
+        padding: 15,
         fontSize: 18,
     },
 
